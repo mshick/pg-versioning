@@ -1,5 +1,5 @@
 {
-  "name": "typescript-starter",
+  "name": "pg-versioning",
   "version": "1.0.0",
   "description": "Migration versioning support for PostgreSQL.",
   "main": "build/main/index.js",
