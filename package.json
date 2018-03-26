@@ -52,9 +52,14 @@
     "node": ">=8.9"
   },
   "dependencies": {
+    "@types/glob": "^5.0.35",
+    "glob": "^7.1.2",
+    "lodash": "^4.17.5",
     "sha.js": "^2.4.10"
   },
   "devDependencies": {
+    "@types/lodash": "^4.14.106",
+    "@types/pg": "^7.4.5",
     "ava": "^1.0.0-beta.3",
     "codecov": "^3.0.0",
     "cz-conventional-changelog": "^2.1.0",
@@ -64,6 +69,7 @@
     "nsp": "^3.2.1",
     "nyc": "^11.5.0",
     "opn-cli": "^3.1.0",
+    "pg": "^7.4.1",
     "prettier": "^1.10.2",
     "standard-version": "^4.0.0",
     "trash-cli": "^1.4.0",
@@ -72,6 +78,9 @@
     "tslint-immutable": "^4.5.1",
     "typedoc": "^0.11.1",
     "typescript": "^2.4.1"
+  },
+  "peerDependencies": {
+    "pg": "^7.4.1"
   },
   "ava": {
     "failFast": true,
