@@ -1,13 +1,13 @@
 // tslint:disable:no-expression-statement
 import path from 'path';
 import { test } from 'ava';
-import { performMigrations } from './migrations';
+import { up } from './migration';
 
 const migrationsDir = '../../../fixtures/migrations';
 
 test('getABC', async t => {
   const migrationsPath = path.resolve(__dirname, migrationsDir);
-  const applied = await performMigrations(
+  const applied = await up(
     'postgresql://postgres@localhost/db',
     migrationsPath
   );

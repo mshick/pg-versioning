@@ -1,12 +1,12 @@
 import { promisify } from 'util';
 import fs from 'fs';
 import path from 'path';
-import { Client } from 'pg';
-import { withPgClient } from './with-pg-client';
+import { PoolClient, QueryResult } from 'pg';
+import { connectPgClient } from './pg-client';
 
 const readFile = promisify(fs.readFile);
 
-export const install = async (pgConfig: any): Promise<void> => {
+export const install = async (pgConfig: any): Promise<any> => {
   try {
     const versioningFilepath = path.join(
       __dirname,
@@ -16,9 +16,17 @@ export const install = async (pgConfig: any): Promise<void> => {
 
     const versioning = await readFile(versioningFilepath, 'utf8');
 
-    await withPgClient(pgConfig, async (client: Client): Promise<void> => {
-      client.query(versioning);
-    });
+    const client = await connectPgClient(pgConfig);
+
+    const doQuery = async (client: PoolClient): Promise<QueryResult> => {
+      return client.query(versioning);
+    };
+
+    const results = await doQuery(client);
+
+    await client.release();
+
+    return results;
   } catch (error) {
     throw error;
   }

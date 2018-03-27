@@ -4,7 +4,7 @@ import glob from 'glob';
 import fp from './fp';
 const { map, reduce, sortBy, toPairs, slice, join, flow } = fp;
 
-const joinComma = join(', ');
+const joinComma = join(',');
 const joinNewLine = join('\n');
 
 export interface Migration {
@@ -82,10 +82,10 @@ export const buildMigrationGraph = (dirpath: string): Array<Object> => {
   return flow(getVersions, mapDependencies)(dirpath);
 };
 
-const buildQuery = (node: Version): string => {
-  const version = JSON.stringify(node.version);
+const buildUpQuery = (node: Version): string => {
+  const version = `'${node.version}'`;
   const dependencies = node.dependencies.length
-    ? `ARRAY[${joinComma(map(JSON.stringify, node.dependencies))}]`
+    ? `ARRAY[${joinComma(map(str => `'${str}'`, node.dependencies))}]`
     : 'NULL';
   const migrations = joinNewLine(map('contents', node.migrations));
 
@@ -96,4 +96,4 @@ ${migrations}
 COMMIT;`;
 };
 
-export const buildQueries = map(buildQuery);
+export const buildUpQueries = map(buildUpQuery);

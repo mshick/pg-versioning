@@ -1,11 +1,9 @@
 import { PoolClient, Client, Pool } from 'pg';
 
-export const withPgClient = async (
-  pgConfig: string | PoolClient | Pool,
-  fn: (PoolClient) => void
+export const connectPgClient = async (
+  pgConfig: string | PoolClient | Pool
 ): Promise<any> => {
   let client;
-  let result;
 
   try {
     if (pgConfig instanceof Client) {
@@ -22,14 +20,12 @@ export const withPgClient = async (
       throw new Error('You must provide a valid client configuration');
     }
 
-    result = await fn(client);
-  } finally {
+    return client;
+  } catch (error) {
     try {
       await client.release();
     } catch (e) {
       // Failed to release, assuming success
     }
   }
-
-  return result;
 };

@@ -1,1 +1,1 @@
-v2.0.0/001-test.sql
+alter table test.post add column foo varchar(30);

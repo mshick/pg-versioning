@@ -1,1 +1,1 @@
-v1.1.0/001-test.sql
+alter table test.tag add column foo varchar(30);

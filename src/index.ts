@@ -1,2 +1,2 @@
-export * from './lib/migrations';
+export * from './lib/migration';
 export * from './lib/install';
